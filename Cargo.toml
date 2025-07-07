@@ -38,6 +38,7 @@ thiserror = "2.0"
 [dev-dependencies]
 assert_matches = "1.5.0"
 base64 = "0.22.1"
+bytesize = "1.3"
 cfg-if = "1.0.1"
 criterion = "0.6"
 hex-literal = "0.4.1"
@@ -50,7 +51,7 @@ rand = { version = "0.9", features = ["std_rng"] }
 statrs = "0.18.0"
 
 [features]
-default = ["crypto-dependencies"]
+default = ["crypto-dependencies", "experimental"]
 experimental = ["bitvec", "fiat-crypto", "fixed", "num-bigint", "num-rational", "num-integer", "num-iter"]
 multithreaded = ["rayon"]
 crypto-dependencies = ["aes", "ctr", "hmac", "sha2"]
@@ -68,6 +69,10 @@ harness = false
 
 [[bench]]
 name = "cycle_counts"
+harness = false
+
+[[bench]]
+name = "server_tests"
 harness = false
 
 [[test]]
