@@ -432,11 +432,11 @@ where
     T: Type,
     P: Xof<SEED_SIZE>,
 {
-    num_aggregators: u8,
-    num_proofs: u8,
-    algorithm_id: u32,
-    typ: T,
-    phantom: PhantomData<P>,
+    pub num_aggregators: u8,
+    pub num_proofs: u8,
+    pub algorithm_id: u32,
+    pub typ: T,
+    pub phantom: PhantomData<P>,
 }
 
 impl<T, P, const SEED_SIZE: usize> Prio3<T, P, SEED_SIZE>
@@ -785,7 +785,7 @@ where
 #[derive(Clone, Debug)]
 pub struct Prio3PublicShare<const SEED_SIZE: usize> {
     /// Contributions to the joint randomness from every aggregator's share.
-    joint_rand_parts: Option<Vec<Seed<SEED_SIZE>>>,
+    pub joint_rand_parts: Option<Vec<Seed<SEED_SIZE>>>,
 }
 
 impl<const SEED_SIZE: usize> Encode for Prio3PublicShare<SEED_SIZE> {
@@ -1073,10 +1073,10 @@ where
 /// Message broadcast by each [`Aggregator`] in each round of the Preparation phase.
 pub struct Prio3PrepareShare<F, const SEED_SIZE: usize> {
     /// A share of the FLP verifier message. (See [`Type`].)
-    verifiers: Vec<F>,
+    pub verifiers: Vec<F>,
 
     /// A part of the joint randomness seed.
-    joint_rand_part: Option<Seed<SEED_SIZE>>,
+    pub joint_rand_part: Option<Seed<SEED_SIZE>>,
 }
 
 impl<F: ConstantTimeEq, const SEED_SIZE: usize> PartialEq for Prio3PrepareShare<F, SEED_SIZE> {
@@ -1149,7 +1149,7 @@ impl<F: NttFriendlyFieldElement, const SEED_SIZE: usize>
 /// Result of combining a round of [`Prio3PrepareShare`] messages.
 pub struct Prio3PrepareMessage<const SEED_SIZE: usize> {
     /// The joint randomness seed computed by the Aggregators.
-    joint_rand_seed: Option<Seed<SEED_SIZE>>,
+    pub joint_rand_seed: Option<Seed<SEED_SIZE>>,
 }
 
 impl<const SEED_SIZE: usize> PartialEq for Prio3PrepareMessage<SEED_SIZE> {
@@ -1225,10 +1225,10 @@ where
 /// State of each [`Aggregator`] during the Preparation phase.
 #[derive(Clone)]
 pub struct Prio3PrepareState<F, const SEED_SIZE: usize> {
-    measurement_share: Share<F, SEED_SIZE>,
-    joint_rand_seed: Option<Seed<SEED_SIZE>>,
-    agg_id: u8,
-    verifiers_len: usize,
+    pub measurement_share: Share<F, SEED_SIZE>,
+    pub joint_rand_seed: Option<Seed<SEED_SIZE>>,
+    pub agg_id: u8,
+    pub verifiers_len: usize,
 }
 
 impl<F: ConstantTimeEq, const SEED_SIZE: usize> PartialEq for Prio3PrepareState<F, SEED_SIZE> {

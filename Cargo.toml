@@ -71,10 +71,6 @@ harness = false
 name = "cycle_counts"
 harness = false
 
-[[bench]]
-name = "server_tests"
-harness = false
-
 [[test]]
 name = "discrete_gauss"
 path = "tests/discrete_gauss.rs"
