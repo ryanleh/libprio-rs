@@ -880,7 +880,7 @@ pub enum Prio3InputShare<F, const SEED_SIZE: usize> {
 
 impl<F: FieldElement, const SEED_SIZE: usize> Prio3InputShare<F, SEED_SIZE> {
     /// Returns the measurement/proofs seed if this share a helper share, otherwise `None`
-    fn meas_and_proofs_share(&self) -> Option<&Seed<SEED_SIZE>> {
+    pub fn meas_and_proofs_share(&self) -> Option<&Seed<SEED_SIZE>> {
         match self {
             Prio3InputShare::Leader { .. } => None,
             Prio3InputShare::Helper {
@@ -891,7 +891,7 @@ impl<F: FieldElement, const SEED_SIZE: usize> Prio3InputShare<F, SEED_SIZE> {
     }
 
     /// Returns the joint randomness blinding seed if there is one, otherwise `None`
-    fn joint_rand_blind(&self) -> Option<&Seed<SEED_SIZE>> {
+    pub fn joint_rand_blind(&self) -> Option<&Seed<SEED_SIZE>> {
         match self {
             Prio3InputShare::Leader {
                 joint_rand_blind, ..
@@ -903,7 +903,7 @@ impl<F: FieldElement, const SEED_SIZE: usize> Prio3InputShare<F, SEED_SIZE> {
     }
 
     /// Returns the measurement share
-    fn measurement_share(&self) -> Share<F, SEED_SIZE> {
+    pub fn measurement_share(&self) -> Share<F, SEED_SIZE> {
         match self {
             Prio3InputShare::Leader {
                 measurement_share, ..
@@ -914,6 +914,8 @@ impl<F: FieldElement, const SEED_SIZE: usize> Prio3InputShare<F, SEED_SIZE> {
             } => Share::Helper(meas_and_proofs_share.clone()),
         }
     }
+
+
 }
 
 impl<F: ConstantTimeEq, const SEED_SIZE: usize> PartialEq for Prio3InputShare<F, SEED_SIZE> {
@@ -1744,7 +1746,7 @@ mod tests {
     const CTX_STR: &[u8] = b"prio3 ctx";
 
     impl<F: FieldElement, const SEED_SIZE: usize> Prio3InputShare<F, SEED_SIZE> {
-        fn proofs_share(&self) -> Share<F, SEED_SIZE> {
+        pub fn proofs_share(&self) -> Share<F, SEED_SIZE> {
             match self {
                 Prio3InputShare::Leader { proofs_share, .. } => {
                     Share::Leader(proofs_share.to_vec())
@@ -1758,7 +1760,7 @@ mod tests {
 
         // Needed for some feature-gated tests
         #[cfg(feature = "experimental")]
-        fn joint_rand_blind_mut(&mut self) -> Option<&mut Seed<SEED_SIZE>> {
+        pub fn joint_rand_blind_mut(&mut self) -> Option<&mut Seed<SEED_SIZE>> {
             match self {
                 Prio3InputShare::Leader {
                     ref mut joint_rand_blind,
